@@ -2,10 +2,25 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
-import ContactForm from './ContactForm';
+import ContactForm from "../ContactForm";
+
 
 test('renders without errors', () => {
-
+    render(<ContactForm />);
+    const header = screen.getByText(/contact form/i);
+    const first_name = screen.getByLabelText(/first name/i);
+    const last_name = screen.getByLabelText(/last name/i);
+    const email = screen.getByLabelText(/email/i);
+    const custom_message = screen.getByLabelText(/message/i);
+    const submit_button = screen.getByRole('button');
+    const error_element = screen.queryAllByTestId('error');
+    expect(header).toBeInTheDocument();
+    expect(first_name).toBeInTheDocument();
+    expect(last_name).toBeInTheDocument();
+    expect(email).toBeInTheDocument();
+    expect(custom_message).toBeInTheDocument();
+    expect(submit_button).toBeInTheDocument();
+    expect(error_element).toHaveLength(0);
 });
 
 test('renders the contact form header', () => {
